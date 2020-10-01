@@ -1,0 +1,44 @@
+<! doctype html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.16.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.16.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+</head>
+
+<body>
+    <div id='vis' style='width:75%; height: 75%;'></div>
+    <script>
+​        function​ receiveMessage(event) {
+​        chartio_data = JSON.parse(event.data)
+        my_data = chartio_data.data
+
+        var youVLSpec = {
+          $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+          description: "Table Heatmap",
+          data: {name: "my_data"},
+            mark: "rect",
+            encoding: {
+              y: {"field": "Country", "type": "nominal"},
+              x: {"field": "Month Created", "type": "ordinal"},
+              color: {"aggregate": "sum", "field": "# of Accounts"}
+            },
+            config: {
+              axis: {"grid": true, "tickBand": "extent"}
+            }
+        };
+          vegaEmbed('#vis', yourVlSpec)
+          .then((res) => res.view
+          .renderer('svg')
+          .insert("my_data",  my_data)
+          .run()
+          );;
+        }
+
+        window.addEventListener('message', receiveMessage);
+        //console.log(message)
+
+    </script>
+</body>
+</html>
