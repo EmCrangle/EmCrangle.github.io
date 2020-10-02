@@ -15,19 +15,17 @@
         my_data = chartio_data.data
 
         var youVLSpec = {
-          $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-          description: 'Table Heatmap',
-          data: {
-            name: "my_data",
-          },
-          mark: 'rect',
-          encoding: {
-              x: {field: 'Month Created', type: 'ordinal'},
-              y: {field: 'Country', type: 'nominal'},
-              color: {field: 'Accounts', type: 'quantitative'}
-            },
-            config: {
-              axis: {grid: true, tickBand: 'extent'}
+          "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "Table Heatmap",
+  "data": {"url": "data/cars.json"},
+  "mark": "rect",
+  "encoding": {
+    "y": {"field": "Country", "type": "nominal"},
+    "x": {"field": "Month Created", "type": "ordinal"},
+    "color": {"field": "Accounts", "type": "quantitative"}
+  },
+  "config": {
+    "axis": {"grid": true, "tickBand": "extent"}
             }
         };
           vegaEmbed('#vis', yourVlSpec)
