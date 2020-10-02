@@ -8,29 +8,29 @@
 </head>
 
 <body>
-    <div id='vis' style='width:75%; height: 75%;'></div>
+    <div id='vis' style='width: 700px; height: 600px;'></div>
     <script>
 ​        function​ receiveMessage(event) {
 ​        chartio_data = JSON.parse(event.data)
-        my_data = chartio_data.data
+         my_data = chartio_data.data
 
-        var youVLSpec = {
-          "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "description": "Table Heatmap",
-  "data": {
-              name: "my_data",
-  },
-  "mark": "rect",
-  "encoding": {
-    "y": {"field": "Country", "type": "nominal"},
-    "x": {"field": "Month Created", "type": "ordinal"},
-    "color": {"field": "Accounts", "type": "quantitative"}
-  },
-  "config": {
-    "axis": {"grid": true, "tickBand": "extent"}
+        var heatmapSpec = {
+          $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+          description: 'Table Heatmap',
+          data: {
+            name: "my_data",
+          },
+          mark: 'rect',
+          encoding: {
+              x: {field: 'Month Created', type: 'ordinal'},
+              y: {field: 'Country', type: 'nominal'},
+              color: {field: 'Accounts', type: 'quatitative'}
+            },
+            config: {
+              axis: {grid: true, tickBand: 'extent'}
             }
         };
-          vegaEmbed('#vis', yourVlSpec)
+          vegaEmbed('#vis', heatmapSpec)
           .then((res) => res.view
           .renderer('svg')
           .insert("my_data",  my_data)
